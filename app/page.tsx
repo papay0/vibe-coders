@@ -83,14 +83,14 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-              <span className="text-gray-900 dark:text-white">npm? cd? git commit?</span>
+              <span className="text-gray-900 dark:text-white">Want to Use Cursor or Claude Code</span>
               <br />
               <span className="bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
-                We Get It—It's Confusing.
+                but stuck on terminal commands?
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
-              Build apps with AI without learning developer jargon. Click buttons instead of typing commands.
+              Don't let npm, git, and localhost overwhelm you. We turn all the technical setup into simple clicks so you can focus on building.
             </p>
 
             {/* Installation Command */}
