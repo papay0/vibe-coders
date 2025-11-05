@@ -16,6 +16,8 @@ export default function HomePage() {
     if (!user || !session) return;
 
     async function loadSettings() {
+      if (!session || !user) return;
+
       setLoading(true);
       const supabase = createClerkSupabaseClient(() => session.getToken());
 
@@ -52,7 +54,7 @@ export default function HomePage() {
   const handleSave = async (apiMode: 'premium' | 'byok') => {
     if (!user || !session) return;
 
-    const supabase = createClerkSupabaseClient(() => session.getToken());
+    const supabase = createClerkSupabaseClient(() => session!.getToken());
 
     const { error } = await supabase
       .from('user_settings')
