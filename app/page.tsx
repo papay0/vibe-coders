@@ -3,17 +3,32 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+type OS = 'mac' | 'windows' | 'linux' | 'unknown';
+
 export default function LandingPage() {
   const [copied, setCopied] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const installCommand = 'curl -fsSL vibe-coders.app/install | sh';
+  const [detectedOS, setDetectedOS] = useState<OS>('unknown');
+  const [showInstructions, setShowInstructions] = useState(false);
+
+  const installCommand = 'curl -fsSL https://vibe-coders-desktop.vercel.app/install | bash';
 
   useEffect(() => {
-    // Check for saved theme preference or default to light mode
+    // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       setDarkMode(true);
       document.documentElement.classList.add('dark');
+    }
+
+    // Detect OS from user agent
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf('mac') !== -1) {
+      setDetectedOS('mac');
+    } else if (userAgent.indexOf('win') !== -1) {
+      setDetectedOS('windows');
+    } else if (userAgent.indexOf('linux') !== -1) {
+      setDetectedOS('linux');
     }
   }, []);
 
@@ -33,6 +48,117 @@ export default function LandingPage() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const getOSInstructions = () => {
+    switch (detectedOS) {
+      case 'mac':
+        return {
+          name: 'macOS',
+          steps: [
+            {
+              icon: '🔍',
+              title: 'Open Spotlight Search',
+              description: 'Press Command (⌘) + Space on your keyboard',
+            },
+            {
+              icon: '💻',
+              title: 'Type "Terminal"',
+              description: 'You\'ll see a black icon with ">_" appear',
+            },
+            {
+              icon: '⏎',
+              title: 'Press Enter',
+              description: 'This opens the Terminal app',
+            },
+            {
+              icon: '📋',
+              title: 'Paste the command',
+              description: 'Right-click and select Paste, or press Command (⌘) + V',
+            },
+            {
+              icon: '✅',
+              title: 'Press Enter',
+              description: 'The installation will start automatically and open your browser!',
+            },
+          ],
+        };
+      case 'windows':
+        return {
+          name: 'Windows',
+          steps: [
+            {
+              icon: '📦',
+              title: 'Install WSL first',
+              description: 'Open PowerShell as Administrator, then run: wsl --install',
+            },
+            {
+              icon: '🔄',
+              title: 'Restart your computer',
+              description: 'After restart, WSL will finish setup',
+            },
+            {
+              icon: '🐧',
+              title: 'Open Ubuntu',
+              description: 'Search for "Ubuntu" in Start menu and open it',
+            },
+            {
+              icon: '📋',
+              title: 'Paste the command',
+              description: 'Right-click in the Ubuntu window to paste',
+            },
+            {
+              icon: '✅',
+              title: 'Press Enter',
+              description: 'The installation will start and open your browser!',
+            },
+          ],
+        };
+      case 'linux':
+        return {
+          name: 'Linux',
+          steps: [
+            {
+              icon: '⌨️',
+              title: 'Open Terminal',
+              description: 'Press Ctrl + Alt + T, or search for "Terminal" in your apps',
+            },
+            {
+              icon: '📋',
+              title: 'Paste the command',
+              description: 'Right-click and select Paste, or press Ctrl + Shift + V',
+            },
+            {
+              icon: '✅',
+              title: 'Press Enter',
+              description: 'The installation will start and open your browser!',
+            },
+          ],
+        };
+      default:
+        return {
+          name: 'Your System',
+          steps: [
+            {
+              icon: '🖥️',
+              title: 'Open Terminal/Command Prompt',
+              description: 'Look for Terminal (Mac/Linux) or PowerShell (Windows)',
+            },
+            {
+              icon: '📋',
+              title: 'Paste the command',
+              description: 'Right-click to paste',
+            },
+            {
+              icon: '✅',
+              title: 'Press Enter',
+              description: 'Follow the on-screen instructions',
+            },
+          ],
+        };
+    }
+  };
+
+  const instructions = getOSInstructions();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-slate-900 dark:to-slate-800">
@@ -93,23 +219,120 @@ export default function LandingPage() {
               Don't let npm, git, and localhost overwhelm you. We turn all the technical setup into simple clicks so you can focus on building.
             </p>
 
-            {/* Installation Command */}
-            <div className="bg-gray-900 dark:bg-slate-950 rounded-2xl p-8 shadow-2xl mb-8 max-w-3xl mx-auto border border-gray-800 dark:border-slate-700">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-gray-400 dark:text-gray-500 text-sm font-mono">Get Started in Seconds</span>
-                <button
+            {/* Installation Box */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl mb-8 max-w-4xl mx-auto border border-gray-200 dark:border-slate-700 overflow-hidden">
+              {/* OS Detection Header */}
+              <div className="bg-gradient-to-r from-teal-500 to-cyan-500 px-8 py-6">
+                <div className="flex items-center gap-4">
+                  <span className="text-5xl">{detectedOS === 'mac' ? '🍎' : detectedOS === 'windows' ? '🪟' : detectedOS === 'linux' ? '🐧' : '💻'}</span>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">
+                      Installation for {instructions.name}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+
+              {/* Installation Command */}
+              <div className="p-8">
+                <div
                   onClick={copyCommand}
-                  className="text-sm text-teal-400 hover:text-teal-300 transition"
+                  className="bg-gray-900 dark:bg-black rounded-xl p-6 cursor-pointer hover:ring-4 hover:ring-teal-500/50 transition-all group relative"
                 >
-                  {copied ? '✓ Copied!' : '📋 Copy'}
-                </button>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-gray-400 text-sm font-medium uppercase tracking-wide">Installation Command</span>
+                    <div className="flex items-center gap-2 text-teal-400 text-sm font-semibold">
+                      {copied ? (
+                        <>
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                          </svg>
+                          <span className="group-hover:text-teal-300">Click to copy</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="font-mono text-sm sm:text-base text-white break-all">
+                    {installCommand}
+                  </div>
+                </div>
+
+                {/* Toggle Instructions */}
+                <div className="mt-6 text-center">
+                  <button
+                    onClick={() => setShowInstructions(!showInstructions)}
+                    className="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-medium inline-flex items-center gap-2 transition"
+                  >
+                    {showInstructions ? (
+                      <>
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                        </svg>
+                        <span>Hide instructions</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                        <span>Show me how to install</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
-              <div className="font-mono text-lg sm:text-xl text-white break-all">
-                {installCommand}
-              </div>
-              <p className="text-gray-500 dark:text-gray-600 text-sm mt-4">
-                Works on Mac, Linux, and Windows (WSL)
-              </p>
+
+              {/* Step-by-step instructions */}
+              {showInstructions && (
+                <div className="px-8 pb-8">
+                  <div className="bg-gray-50 dark:bg-slate-900 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-6">
+                      Step-by-Step Guide
+                    </h4>
+                    <div className="space-y-5">
+                      {instructions.steps.map((step, index) => (
+                        <div key={index} className="flex gap-4 items-start">
+                          <div className="flex-shrink-0">
+                            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-lg flex items-center justify-center text-white font-bold">
+                              {index + 1}
+                            </div>
+                          </div>
+                          <div className="flex-1 pt-1">
+                            <h5 className="font-semibold text-gray-900 dark:text-white mb-1">
+                              {step.title}
+                            </h5>
+                            <p className="text-gray-600 dark:text-gray-400 text-sm">
+                              {step.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {detectedOS === 'windows' && (
+                      <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <p className="text-sm text-blue-900 dark:text-blue-300">
+                          <strong>Windows Note:</strong> WSL (Windows Subsystem for Linux) is required.
+                          If you haven't installed it yet, follow Step 1 above first!
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="mt-6 p-4 bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-lg border border-teal-200 dark:border-teal-800">
+                      <p className="text-sm text-gray-900 dark:text-white text-center">
+                        <strong>That&apos;s it!</strong> After pressing Enter, the app will install automatically and open in your browser.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Demo placeholder */}
@@ -261,7 +484,7 @@ export default function LandingPage() {
                 </div>
                 <p className="text-teal-100 dark:text-cyan-100 mb-3 pl-13">One command installs everything automatically</p>
                 <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-white">
-                  curl -fsSL vibe-coders.app/install | sh
+                  {installCommand}
                 </div>
               </div>
 
@@ -495,12 +718,12 @@ export default function LandingPage() {
               Get Started Now
             </Link>
             <a
-              href="https://github.com/yourusername/vibe-coders"
+              href="https://github.com/papay0/vibe-coders-desktop"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition"
             >
-              View Documentation
+              View on GitHub
             </a>
           </div>
 
@@ -532,18 +755,16 @@ export default function LandingPage() {
             <div>
               <h4 className="text-white font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-teal-400 transition">Documentation</a></li>
-                <li><a href="#" className="hover:text-teal-400 transition">API Reference</a></li>
-                <li><a href="#" className="hover:text-teal-400 transition">Support</a></li>
+                <li><a href="https://github.com/papay0/vibe-coders-desktop" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition">Documentation</a></li>
+                <li><a href="https://github.com/papay0/vibe-coders-desktop/issues" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition">Support</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-white font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-teal-400 transition">About</a></li>
-                <li><a href="#" className="hover:text-teal-400 transition">Blog</a></li>
-                <li><a href="#" className="hover:text-teal-400 transition">Contact</a></li>
+                <li><a href="https://github.com/papay0" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition">About</a></li>
+                <li><a href="https://github.com/papay0/vibe-coders-desktop/issues" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition">Contact</a></li>
               </ul>
             </div>
           </div>
