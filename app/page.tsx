@@ -221,14 +221,14 @@ export default function LandingPage() {
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
               <span className="bg-gradient-to-r from-purple-500 via-teal-500 to-blue-500 bg-clip-text text-transparent">
-                Appily puts a simple UI on powerful AI coding tools
+                The AI Development Platform for Non-Technical Builders
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-4 max-w-3xl mx-auto">
-              Get the full power of Claude Code and Cursor without learning git, npm, or terminal commands.
+              Professional AI coding power with simple buttons.
             </p>
             <p className="text-lg text-gray-500 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-              Just click buttons. Build real Next.js, React, and mobile apps with AI—no technical setup required.
+              Build unlimited projects without learning git, terminal, or npm.
             </p>
 
             {/* Installation Box */}
@@ -360,98 +360,202 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Venn Diagram Section */}
+      {/* Comparison Section */}
       <section className="py-20 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-            {/* Left side - Title (1/3) */}
-            <div className="lg:col-span-1 text-center lg:text-left">
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-                The Best of Both Worlds
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
-                You shouldn't have to choose between easy and powerful.
-              </p>
-              <p className="text-lg text-gray-500 dark:text-gray-400">
-                Appily gives you unlimited AI coding power with zero technical complexity.
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Why Appily?
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">
+              You shouldn't have to choose between easy and powerful.
+            </p>
+            <p className="text-lg text-gray-500 dark:text-gray-400">
+              Appily gives you unlimited AI coding power with zero technical complexity.
+            </p>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b-2 border-gray-200 dark:border-slate-700">
+                  <th className="text-left py-4 px-4 font-semibold text-gray-900 dark:text-white"></th>
+                  <th className="py-4 px-4 text-center">
+                    <div className="font-bold text-lg text-purple-600 dark:text-purple-400">Lovable</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 font-normal mt-1">Easy but limited</div>
+                  </th>
+                  <th className="py-4 px-4 text-center">
+                    <div className="font-bold text-lg text-blue-600 dark:text-blue-400">Cursor/Claude Code</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 font-normal mt-1">Powerful but complex</div>
+                  </th>
+                  <th className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="font-bold text-lg text-teal-600 dark:text-teal-400">Appily</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 font-semibold mt-1">Easy AND powerful</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Import existing projects</td>
+                  <td className="py-4 px-4 text-center text-red-600 dark:text-red-400">❌</td>
+                  <td className="py-4 px-4 text-center text-green-600 dark:text-green-400">✅</td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50 text-green-600 dark:text-green-400 font-semibold">✅ One click</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Choose your backend</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-red-600 dark:text-red-400">❌</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Supabase only</div>
+                  </td>
+                  <td className="py-4 px-4 text-center text-green-600 dark:text-green-400">✅</td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50 text-green-600 dark:text-green-400 font-semibold">✅</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Build mobile apps</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-red-600 dark:text-red-400">❌</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Web only</div>
+                  </td>
+                  <td className="py-4 px-4 text-center text-green-600 dark:text-green-400">✅</td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50 text-green-600 dark:text-green-400 font-semibold">✅</td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Framework choice</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-red-600 dark:text-red-400">❌</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">React/TS only</div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-green-600 dark:text-green-400">✅</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Unlimited</div>
+                  </td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="text-green-600 dark:text-green-400 font-semibold">✅</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 mt-1 font-medium">Unlimited</div>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Team collaboration</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-yellow-600 dark:text-yellow-400">⚠️</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Can't import team projects</div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-green-600 dark:text-green-400">✅</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Git-based (requires git knowledge)</div>
+                  </td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="text-green-600 dark:text-green-400 font-semibold">✅</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 mt-1 font-medium">Git-based with UI buttons</div>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Setup time</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-green-600 dark:text-green-400">✅</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Instant</div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-red-600 dark:text-red-400">❌</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">2-4 hours</div>
+                  </td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="text-green-600 dark:text-green-400 font-semibold">✅</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 mt-1 font-medium">2 minutes</div>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">How to save your work</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-green-600 dark:text-green-400">✅</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Click deploy</div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-red-600 dark:text-red-400">❌</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-mono">git add && commit && push</div>
+                  </td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="text-green-600 dark:text-green-400 font-semibold">✅</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 mt-1 font-medium">Click "Save"</div>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Technical knowledge needed</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-green-600 dark:text-green-400">✅</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">None</div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-red-600 dark:text-red-400">❌</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Git, npm, terminal</div>
+                  </td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="text-green-600 dark:text-green-400 font-semibold">✅</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 mt-1 font-medium">None</div>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-200 dark:border-slate-700">
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Learning curve</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-2xl">🟢</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Easy</div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-2xl">🔴</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Steep</div>
+                  </td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="text-2xl">🟢</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 mt-1 font-medium">Easy</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Power & Flexibility</td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-2xl">🟡</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Limited</div>
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="text-2xl">🟢</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Unlimited</div>
+                  </td>
+                  <td className="py-4 px-4 text-center bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50">
+                    <div className="text-2xl">🟢</div>
+                    <div className="text-xs text-teal-700 dark:text-teal-300 mt-1 font-medium">Unlimited</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Key insights */}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-purple-50 dark:bg-purple-950/20 rounded-2xl p-6 border border-purple-200 dark:border-purple-900">
+              <div className="text-purple-600 dark:text-purple-400 font-semibold mb-3">The Lovable Problem</div>
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
+                "I built a prototype but now my CTO says we can't use it in production because we can't integrate with our existing systems."
               </p>
             </div>
-
-            {/* Right side - Venn Diagram (2/3) */}
-            <div className="lg:col-span-2 flex flex-col items-center gap-6">
-              {/* Circles */}
-              <div className="relative w-full max-w-2xl">
-                <svg viewBox="0 0 500 280" className="w-full h-auto">
-                  <defs>
-                    {/* Gradients */}
-                    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{ stopColor: '#c084fc', stopOpacity: 0.6 }} />
-                      <stop offset="100%" style={{ stopColor: '#f0abfc', stopOpacity: 0.6 }} />
-                    </linearGradient>
-                    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 0.6 }} />
-                      <stop offset="100%" style={{ stopColor: '#22d3ee', stopOpacity: 0.6 }} />
-                    </linearGradient>
-                    <filter id="glow">
-                      <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
-                      <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                      </feMerge>
-                    </filter>
-                  </defs>
-
-                  {/* Left Circle - Lovable */}
-                  <circle cx="180" cy="140" r="120" fill="url(#purpleGrad)" stroke="#c084fc" strokeWidth="4" filter="url(#glow)" />
-
-                  {/* Right Circle - Cursor */}
-                  <circle cx="320" cy="140" r="120" fill="url(#blueGrad)" stroke="#60a5fa" strokeWidth="4" filter="url(#glow)" />
-
-                  {/* Labels only - no emojis */}
-                  <text x="140" y="150" fontSize="20" fontWeight="bold" fill="#7c3aed" textAnchor="middle" className="dark:fill-purple-300">Lovable</text>
-
-                  <text x="360" y="150" fontSize="20" fontWeight="bold" fill="#1e40af" textAnchor="middle" className="dark:fill-blue-300">Cursor</text>
-
-                  <text x="250" y="150" fontSize="22" fontWeight="bold" fill="#0f766e" textAnchor="middle" className="dark:fill-teal-300">Appily</text>
-                </svg>
-              </div>
-
-              {/* Descriptions Below */}
-              <div className="grid grid-cols-3 gap-4 w-full max-w-2xl text-center px-4">
-                {/* Lovable */}
-                <div className="space-y-1">
-                  <div className="text-sm font-bold text-purple-600 dark:text-purple-400">Lovable</div>
-                  <div className="space-y-0.5 text-xs">
-                    <div className="text-green-600 dark:text-green-400">✅ Easy</div>
-                    <div className="text-red-600 dark:text-red-400">❌ Limited</div>
-                  </div>
-                </div>
-
-                {/* Appily */}
-                <div className="space-y-1">
-                  <div className="text-sm font-bold text-teal-600 dark:text-teal-400">Appily</div>
-                  <div className="space-y-0.5 text-xs font-semibold">
-                    <div className="text-green-600 dark:text-green-400">✅ Easy</div>
-                    <div className="text-green-600 dark:text-green-400">✅ Powerful</div>
-                    <div className="text-green-600 dark:text-green-400">✅ Simple</div>
-                  </div>
-                </div>
-
-                {/* Cursor */}
-                <div className="space-y-1">
-                  <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Cursor</div>
-                  <div className="space-y-0.5 text-xs">
-                    <div className="text-green-600 dark:text-green-400">✅ Powerful</div>
-                    <div className="text-red-600 dark:text-red-400">❌ Complex</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Label */}
-              <div className="text-xs text-gray-400 dark:text-gray-500 italic mt-2">
-                For designers, PMs, and non-technical builders
-              </div>
+            <div className="bg-blue-50 dark:bg-blue-950/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-900">
+              <div className="text-blue-600 dark:text-blue-400 font-semibold mb-3">The Cursor Problem</div>
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
+                "I watched a demo and got excited, then spent 3 hours installing Node.js, npm, git, and gave up."
+              </p>
             </div>
+          </div>
+
+          <div className="mt-8 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-950/50 dark:to-cyan-950/50 rounded-2xl p-8 border-2 border-teal-200 dark:border-teal-800">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-teal-600 dark:text-teal-400 mb-3">The Appily Solution</div>
+              <p className="text-lg text-gray-700 dark:text-gray-300">
+                Start in 2 minutes. Click buttons instead of typing commands. Use any framework. Import your team's projects.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center text-sm text-gray-500 dark:text-gray-400 italic">
+            For designers, PMs, and non-technical builders
           </div>
         </div>
       </section>
