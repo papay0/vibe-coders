@@ -221,14 +221,14 @@ export default function LandingPage() {
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
               <span className="bg-gradient-to-r from-purple-500 via-teal-500 to-blue-500 bg-clip-text text-transparent">
-                Lovable's Simplicity + Cursor's Power
+                Appily puts a simple UI on powerful AI coding tools
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-4 max-w-3xl mx-auto">
-              Build real projects with AI. No coding knowledge required.
+              Get the full power of Claude Code and Cursor without learning git, npm, or terminal commands.
             </p>
             <p className="text-lg text-gray-500 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-              Get the unlimited power of Claude Code and Cursor with point-and-click simplicity. No confusing commands, no technical setup.
+              Just click buttons. Build real Next.js, React, and mobile apps with AI—no technical setup required.
             </p>
 
             {/* Installation Box */}
