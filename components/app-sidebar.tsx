@@ -47,10 +47,10 @@ export function AppSidebar() {
             <SidebarMenuButton size="lg" asChild>
               <Link href="/home">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-600 to-cyan-600 text-white">
-                  <span className="font-bold text-lg">V</span>
+                  <span className="font-bold text-lg">A</span>
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Vibe Coders</span>
+                  <span className="font-semibold">Appily</span>
                   <span className="text-xs text-muted-foreground">Code with AI</span>
                 </div>
               </Link>

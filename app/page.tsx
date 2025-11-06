@@ -2,16 +2,27 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 type OS = 'mac' | 'windows' | 'linux' | 'unknown';
 
 export default function LandingPage() {
+  const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
   const [copied, setCopied] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [detectedOS, setDetectedOS] = useState<OS>('unknown');
   const [showInstructions, setShowInstructions] = useState(false);
 
   const installCommand = 'curl -fsSL https://vibe-coders-desktop.vercel.app/install | bash';
+
+  useEffect(() => {
+    // Redirect to /home if user is authenticated
+    if (isLoaded && isSignedIn) {
+      router.push('/home');
+    }
+  }, [isLoaded, isSignedIn, router]);
 
   useEffect(() => {
     // Check for saved theme preference
@@ -168,7 +179,7 @@ export default function LandingPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
               <div className="text-2xl font-bold bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent">
-                Vibe Coders
+                Appily
               </div>
             </div>
             <nav className="hidden md:flex items-center gap-8">
@@ -209,14 +220,15 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-              <span className="text-gray-900 dark:text-white">Want to Use Cursor or Claude Code</span>
-              <br />
-              <span className="bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
-                but stuck on terminal commands?
+              <span className="bg-gradient-to-r from-purple-500 via-teal-500 to-blue-500 bg-clip-text text-transparent">
+                Lovable's Simplicity + Cursor's Power
               </span>
             </h1>
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
-              Don't let npm, git, and localhost overwhelm you. We turn all the technical setup into simple clicks so you can focus on building.
+            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-4 max-w-3xl mx-auto">
+              Build real projects with AI. No coding knowledge required.
+            </p>
+            <p className="text-lg text-gray-500 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+              Get the unlimited power of Claude Code and Cursor with point-and-click simplicity. No confusing commands, no technical setup.
             </p>
 
             {/* Installation Box */}
@@ -348,26 +360,122 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Venn Diagram Section */}
+      <section className="py-20 bg-white dark:bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+            {/* Left side - Title (1/3) */}
+            <div className="lg:col-span-1 text-center lg:text-left">
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                The Best of Both Worlds
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+                You shouldn't have to choose between easy and powerful.
+              </p>
+              <p className="text-lg text-gray-500 dark:text-gray-400">
+                Appily gives you unlimited AI coding power with zero technical complexity.
+              </p>
+            </div>
+
+            {/* Right side - Venn Diagram (2/3) */}
+            <div className="lg:col-span-2 flex flex-col items-center gap-6">
+              {/* Circles */}
+              <div className="relative w-full max-w-2xl">
+                <svg viewBox="0 0 500 280" className="w-full h-auto">
+                  <defs>
+                    {/* Gradients */}
+                    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{ stopColor: '#c084fc', stopOpacity: 0.6 }} />
+                      <stop offset="100%" style={{ stopColor: '#f0abfc', stopOpacity: 0.6 }} />
+                    </linearGradient>
+                    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{ stopColor: '#60a5fa', stopOpacity: 0.6 }} />
+                      <stop offset="100%" style={{ stopColor: '#22d3ee', stopOpacity: 0.6 }} />
+                    </linearGradient>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+
+                  {/* Left Circle - Lovable */}
+                  <circle cx="180" cy="140" r="120" fill="url(#purpleGrad)" stroke="#c084fc" strokeWidth="4" filter="url(#glow)" />
+
+                  {/* Right Circle - Cursor */}
+                  <circle cx="320" cy="140" r="120" fill="url(#blueGrad)" stroke="#60a5fa" strokeWidth="4" filter="url(#glow)" />
+
+                  {/* Labels only - no emojis */}
+                  <text x="140" y="150" fontSize="20" fontWeight="bold" fill="#7c3aed" textAnchor="middle" className="dark:fill-purple-300">Lovable</text>
+
+                  <text x="360" y="150" fontSize="20" fontWeight="bold" fill="#1e40af" textAnchor="middle" className="dark:fill-blue-300">Cursor</text>
+
+                  <text x="250" y="150" fontSize="22" fontWeight="bold" fill="#0f766e" textAnchor="middle" className="dark:fill-teal-300">Appily</text>
+                </svg>
+              </div>
+
+              {/* Descriptions Below */}
+              <div className="grid grid-cols-3 gap-4 w-full max-w-2xl text-center px-4">
+                {/* Lovable */}
+                <div className="space-y-1">
+                  <div className="text-sm font-bold text-purple-600 dark:text-purple-400">Lovable</div>
+                  <div className="space-y-0.5 text-xs">
+                    <div className="text-green-600 dark:text-green-400">✅ Easy</div>
+                    <div className="text-red-600 dark:text-red-400">❌ Limited</div>
+                  </div>
+                </div>
+
+                {/* Appily */}
+                <div className="space-y-1">
+                  <div className="text-sm font-bold text-teal-600 dark:text-teal-400">Appily</div>
+                  <div className="space-y-0.5 text-xs font-semibold">
+                    <div className="text-green-600 dark:text-green-400">✅ Easy</div>
+                    <div className="text-green-600 dark:text-green-400">✅ Powerful</div>
+                    <div className="text-green-600 dark:text-green-400">✅ Simple</div>
+                  </div>
+                </div>
+
+                {/* Cursor */}
+                <div className="space-y-1">
+                  <div className="text-sm font-bold text-blue-600 dark:text-blue-400">Cursor</div>
+                  <div className="space-y-0.5 text-xs">
+                    <div className="text-green-600 dark:text-green-400">✅ Powerful</div>
+                    <div className="text-red-600 dark:text-red-400">❌ Complex</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Label */}
+              <div className="text-xs text-gray-400 dark:text-gray-500 italic mt-2">
+                For designers, PMs, and non-technical builders
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Comparison Section */}
       <section className="py-20 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              The Difference is Clear
+              The Same Power, None of the Pain
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              See how Vibe Coders transforms your development workflow
+              Everything you've seen in Cursor demos, but actually easy to use
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* Without Vibe Coders */}
+            {/* Without Appily */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-lg border-2 border-red-200 dark:border-red-900/50">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
                   <span className="text-2xl">😰</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Without Vibe Coders</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Without Appily</h3>
               </div>
 
               <div className="space-y-4">
@@ -459,7 +567,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* With Vibe Coders */}
+            {/* With Appily */}
             <div className="bg-gradient-to-br from-teal-600 to-cyan-600 dark:from-teal-700 dark:to-cyan-700 rounded-3xl p-8 shadow-2xl border-2 border-teal-400 dark:border-teal-600 relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <div className="bg-yellow-400 dark:bg-yellow-500 text-yellow-900 dark:text-yellow-950 px-6 py-2 rounded-full text-sm font-bold shadow-lg">
@@ -471,7 +579,7 @@ export default function LandingPage() {
                 <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
                   <span className="text-2xl">🎉</span>
                 </div>
-                <h3 className="text-2xl font-bold text-white">With Vibe Coders</h3>
+                <h3 className="text-2xl font-bold text-white">With Appily</h3>
               </div>
 
               {/* Step 1 */}
@@ -480,7 +588,7 @@ export default function LandingPage() {
                   <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-teal-600 font-bold text-lg">1</span>
                   </div>
-                  <h4 className="text-xl font-bold text-white">Install Vibe Coders</h4>
+                  <h4 className="text-xl font-bold text-white">Install Appily</h4>
                 </div>
                 <p className="text-teal-100 dark:text-cyan-100 mb-3 pl-13">One command installs everything automatically</p>
                 <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-white">
@@ -494,23 +602,32 @@ export default function LandingPage() {
                   <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-teal-600 font-bold text-lg">2</span>
                   </div>
-                  <h4 className="text-xl font-bold text-white">Use Beautiful Web UI</h4>
+                  <h4 className="text-xl font-bold text-white">Just Click Buttons</h4>
                 </div>
-                <p className="text-teal-100 dark:text-cyan-100 mb-4 pl-13">Click buttons to build projects:</p>
+                <p className="text-teal-100 dark:text-cyan-100 mb-4 pl-13">Everything you need, just simple clicks:</p>
 
                 <div className="space-y-2 pl-13">
-                  <button className="w-full bg-white/20 hover:bg-white/30 transition text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center gap-3">
+                  <div className="w-full bg-white/20 text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center gap-3">
                     <span className="text-2xl">🌐</span>
-                    <span>Create Website</span>
-                  </button>
-                  <button className="w-full bg-white/20 hover:bg-white/30 transition text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center gap-3">
-                    <span className="text-2xl">📱</span>
-                    <span>Create Mobile App</span>
-                  </button>
-                  <button className="w-full bg-white/20 hover:bg-white/30 transition text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center gap-3">
+                    <div className="flex-1">
+                      <div className="text-sm">Click "New Project"</div>
+                      <div className="text-xs text-teal-200">We handle all the setup automatically</div>
+                    </div>
+                  </div>
+                  <div className="w-full bg-white/20 text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center gap-3">
+                    <span className="text-2xl">💬</span>
+                    <div className="flex-1">
+                      <div className="text-sm">Chat with AI</div>
+                      <div className="text-xs text-teal-200">Same powerful Claude/Cursor AI</div>
+                    </div>
+                  </div>
+                  <div className="w-full bg-white/20 text-white font-semibold py-3 px-4 rounded-lg text-left flex items-center gap-3">
                     <span className="text-2xl">💾</span>
-                    <span>Commit Changes</span>
-                  </button>
+                    <div className="flex-1">
+                      <div className="text-sm">Click "Save"</div>
+                      <div className="text-xs text-teal-200">We save your work safely</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -733,12 +850,107 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-20 bg-white dark:bg-slate-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              Everything you need to know about Appily
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* FAQ Item 1 */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                Is this as powerful as Cursor or Claude Code?
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                <strong>Yes!</strong> We use the exact same AI models (Claude, GPT-4, etc.) The only difference is the interface.
+                You get all the power of professional AI coding tools, but through a simple web UI instead of the terminal.
+              </p>
+            </div>
+
+            {/* FAQ Item 2 */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                Can I import my existing projects?
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                <strong>Absolutely.</strong> Just paste your GitHub URL or browse to a local folder.
+                Appily works with any existing project, just like Cursor or Claude Code would.
+              </p>
+            </div>
+
+            {/* FAQ Item 3 */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                Will this work for React / Next.js / Vue / [my framework]?
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                <strong>Yes.</strong> Any framework that works with Cursor or Claude Code works here.
+                React, Vue, Angular, Svelte, Next.js, Nuxt, Python, Go—you name it. No restrictions.
+              </p>
+            </div>
+
+            {/* FAQ Item 4 */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                Do I need to know how to code?
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                <strong>Nope.</strong> That's the whole point. Just describe what you want in plain English,
+                and the AI writes the code. You can build real projects without any technical knowledge.
+              </p>
+            </div>
+
+            {/* FAQ Item 4.5 - New */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                I'm already a developer. Is this for me?
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                <strong>Probably not.</strong> If you're comfortable with your existing workflow, just use Cursor or Claude Code directly.
+                Appily is specifically for designers, PMs, and non-technical builders who want the same AI power without the technical barrier.
+              </p>
+            </div>
+
+            {/* FAQ Item 5 */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                How is this different from Lovable or Bolt?
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                Lovable and Bolt are great for quick demos, but they have limitations. They run in a sandbox,
+                support limited frameworks, and you can't import existing projects. Appily gives you <strong>unlimited power</strong>—any
+                framework, any library, import any project—but keeps the same easy-to-use interface.
+              </p>
+            </div>
+
+            {/* FAQ Item 6 */}
+            <div className="bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-teal-100 dark:border-slate-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                What if I get stuck or need help?
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                We have detailed guides for every step of the way. Plus, our community is active and helpful.
+                Check out our <a href="https://github.com/papay0/vibe-coders-desktop" target="_blank" rel="noopener noreferrer" className="text-teal-600 dark:text-teal-400 hover:underline font-semibold">GitHub</a> for
+                documentation and support.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-gray-900 dark:bg-slate-950 text-gray-400 dark:text-gray-500 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <div className="text-xl font-bold text-white mb-4">Vibe Coders</div>
+              <div className="text-xl font-bold text-white mb-4">Appily</div>
               <p className="text-sm">
                 Making AI-powered development accessible to everyone.
               </p>
@@ -770,7 +982,7 @@ export default function LandingPage() {
           </div>
 
           <div className="border-t border-gray-800 dark:border-slate-800 mt-12 pt-8 text-center text-sm">
-            <p>&copy; 2025 Vibe Coders. All rights reserved.</p>
+            <p>&copy; 2025 Appily. All rights reserved.</p>
           </div>
         </div>
       </footer>

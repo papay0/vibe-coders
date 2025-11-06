@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useUser, useSession } from '@clerk/nextjs';
 import { createClerkSupabaseClient, UserSettings } from '@/lib/supabase';
 import { SubscriptionSettings } from '@/components/subscription-settings';
@@ -12,13 +12,11 @@ export default function HomePage() {
   const [settings, setSettings] = useState<UserSettings | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const loadSettings = useCallback(async (signal?: AbortSignal) => {
     if (!user || !session) return;
 
-    async function loadSettings() {
-      if (!session || !user) return;
-
-      setLoading(true);
+    setLoading(true);
+    try {
       const supabase = createClerkSupabaseClient(() => session.getToken());
 
       const { data, error } = await supabase
@@ -26,6 +24,9 @@ export default function HomePage() {
         .select('*')
         .eq('clerk_user_id', user.id)
         .single();
+
+      // Check if request was aborted
+      if (signal?.aborted) return;
 
       if (data) {
         setSettings(data);
@@ -44,12 +45,55 @@ export default function HomePage() {
           setSettings(newData);
         }
       }
-
-      setLoading(false);
+    } catch (error) {
+      if (signal?.aborted) return; // Ignore errors from aborted requests
+    } finally {
+      if (!signal?.aborted) {
+        setLoading(false);
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]); // Only depend on user.id - session is captured in closure and checked at runtime
 
-    loadSettings();
-  }, [user, session]);
+  useEffect(() => {
+    const abortController = new AbortController();
+    loadSettings(abortController.signal);
+
+    // Cleanup: abort the request if component unmounts or effect re-runs
+    return () => {
+      abortController.abort();
+    };
+  }, [loadSettings]);
+
+  // Real-time subscription for settings changes
+  useEffect(() => {
+    if (!user?.id || !session) return;
+
+    const supabase = createClerkSupabaseClient(() => session.getToken());
+
+    const filter = `clerk_user_id=eq.${user.id}`;
+
+    const channel = supabase
+      .channel('user-settings-changes')
+      .on('postgres_changes', {
+        event: '*', // Listen to all events: INSERT, UPDATE, DELETE
+        schema: 'public',
+        table: 'user_settings',
+        filter, // Server-side filter
+      }, (payload) => {
+        // Handle different event types
+        if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
+          setSettings(payload.new as UserSettings);
+        } else if (payload.eventType === 'DELETE') {
+          setSettings(null);
+        }
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, session]);
 
   const handleSave = async (apiMode: 'premium' | 'byok') => {
     if (!user || !session) return;

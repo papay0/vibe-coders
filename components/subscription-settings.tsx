@@ -29,7 +29,7 @@ export function SubscriptionSettings({ settings, loading, onSave }: Subscription
       <CardHeader>
         <CardTitle>Subscription Plan</CardTitle>
         <CardDescription>
-          Choose how you want to use Vibe Coders
+          Choose how you want to use Appily
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -62,15 +62,15 @@ export function SubscriptionSettings({ settings, loading, onSave }: Subscription
             </RadioGroup>
 
             {apiMode === 'byok' && (
-              <div className="rounded-lg border border-teal-200 bg-teal-50/50 p-4">
-                <p className="text-sm font-medium text-teal-900 mb-2">
+              <div className="rounded-lg border border-teal-200 dark:border-teal-800 bg-teal-50/50 dark:bg-teal-950/50 p-4">
+                <p className="text-sm font-medium text-teal-900 dark:text-teal-100 mb-2">
                   Configure your API key in the Desktop App
                 </p>
-                <p className="text-sm text-teal-700">
+                <p className="text-sm text-teal-700 dark:text-teal-300">
                   To use your own API key, download the{' '}
                   <a
                     href="/download"
-                    className="text-teal-600 hover:underline font-semibold"
+                    className="text-teal-600 dark:text-teal-400 hover:underline font-semibold"
                   >
                     Desktop App
                   </a>{' '}
