@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
@@ -14,6 +14,7 @@ export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false);
   const [detectedOS, setDetectedOS] = useState<OS>('unknown');
   const [showInstructions, setShowInstructions] = useState(false);
+  const tableScrollRef = useRef<HTMLDivElement>(null);
 
   const installCommand = 'curl -fsSL https://vibe-coders-desktop.vercel.app/install | bash';
 
@@ -23,6 +24,14 @@ export default function LandingPage() {
       router.push('/home');
     }
   }, [isLoaded, isSignedIn, router]);
+
+  useEffect(() => {
+    // Scroll table to show Appily column on mobile
+    if (tableScrollRef.current && window.innerWidth < 640) {
+      // Scroll to the right to show the Appily column
+      tableScrollRef.current.scrollLeft = tableScrollRef.current.scrollWidth;
+    }
+  }, []);
 
   useEffect(() => {
     // Check for saved theme preference
@@ -375,9 +384,16 @@ export default function LandingPage() {
             </p>
           </div>
 
+          {/* Scroll hint for mobile */}
+          <div className="text-center mb-4 sm:hidden">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              👈 Swipe to compare features
+            </p>
+          </div>
+
           {/* Comparison Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
+          <div ref={tableScrollRef} className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-thin scrollbar-thumb-teal-500 scrollbar-track-gray-200">
+            <table className="w-full border-collapse min-w-[800px]">
               <thead>
                 <tr className="border-b-2 border-gray-200 dark:border-slate-700">
                   <th className="text-left py-4 px-4 font-semibold text-gray-900 dark:text-white"></th>
