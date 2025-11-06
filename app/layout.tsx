@@ -15,8 +15,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vibe Coders",
-  description: "Code with AI, no terminal fear",
+  title: "Appily - The AI Development Platform for Non-Technical Builders",
+  description: "Professional AI coding power with simple buttons. Build unlimited projects without learning git, terminal, or npm.",
+  openGraph: {
+    title: "Appily - The AI Development Platform for Non-Technical Builders",
+    description: "Professional AI coding power with simple buttons. Build unlimited projects without learning git, terminal, or npm.",
+    type: "website",
+    url: "https://appily.dev",
+    siteName: "Appily",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "Appily - The AI Development Platform for Non-Technical Builders",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Appily - The AI Development Platform for Non-Technical Builders",
+    description: "Professional AI coding power with simple buttons. Build unlimited projects without learning git, terminal, or npm.",
+    images: ["/api/og"],
+  },
 };
 
 export default function RootLayout({
